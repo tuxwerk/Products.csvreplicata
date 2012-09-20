@@ -30,6 +30,8 @@ from zope.component import getUtility, getAdapters
 from Products.CMFCore.utils import getToolByName
 from Products.csvreplicata import config
 
+from plone.i18n.normalizer.interfaces import IURLNormalizer
+
 if config.PLONE25:
     from zope.app.event.objectevent import ObjectCreatedEvent  as ObjectInitializedEvent
     from zope.app.event.objectevent import ObjectModifiedEvent as ObjectEditedEvent
@@ -439,6 +441,11 @@ class Replicator(object):
                 raise csvreplicataNonExistentContainer(
                     "Non existent container %s " % parent_path
                 )
+        # In case of empty id set id from title
+        # FIXME: We assume the language is in the 12th column, 
+        # the title is in the fourth column and in unicode!
+        if id == '':
+            id = getUtility(IURLNormalizer).normalize(unicode(row[3]), locale=row[11], max_length=120)
 
         # acquisition nightmare, just use base zope ids
         oids = container.objectIds()
