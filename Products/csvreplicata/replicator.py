@@ -389,12 +389,12 @@ class Replicator(object):
                         except csvreplicataNonExistentContainer, e:
                             needs_another_loop = True
 
-                        except csvreplicataMissingFileInArchive, e:
-                            errors.append("Error in line "+str(line) + ": %s" % (e))
+                        #except csvreplicataMissingFileInArchive, e:
+                        #    errors.append("Error in line "+str(line) + ": %s" % (e))
 
-                        except Exception, e:
-                             errors.append("Error in line "+str(line) + \
-                                           ": %s" % (e))
+                        #except Exception, e:
+                        #     errors.append("Error in line "+str(line) + \
+                        #                   ": %s" % (e))
                             #raise Exception, "Error in csv file line "+str(line) + ": %s \n%s" % (e, row)
                 else:
                     label_line = False
@@ -482,9 +482,8 @@ class Replicator(object):
                     if fcomplete:
                         continue
                     field = obj.Schema().getField(f)
-                    if field is None and ignore_content_errors:
-                        if not plain_format:
-                            logger.error('field %s is None'%f)
+                    if field is None:
+                        logger.error('field %s is None' % f)
                         continue
                     type = field.getType()
                     h = handlers.get(type, handlers['default_handler'])
