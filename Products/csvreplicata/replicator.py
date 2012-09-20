@@ -303,16 +303,13 @@ class Replicator(object):
             if stringdelimiter is None:
                 stringdelimiter = csvtool.getStringdelimiter()
             if datetimeformat is None:
-                #datetimeformat = csvtool.getDateTimeFormat()
-                datetimeformat = "%Y-%m-%d"
+                datetimeformat = csvtool.getDateTimeFormat()
             self.datetimeformat = datetimeformat
             self.vocabularyvalue = vocabularyvalue
 
             # read csv
             reader = csv.reader(csvfile, delimiter=delimiter,
                                 quotechar=stringdelimiter)
-#                                 ,
-#                                 quoting=csv.QUOTE_NONNUMERIC)
             line = 1
             # parse header
             head = reader.next()
@@ -644,7 +641,6 @@ class Replicator(object):
             stringdelimiter = csvtool.getStringdelimiter()
         if datetimeformat is None:
             datetimeformat = csvtool.getDateTimeFormat()
-            #datetimeformat = "%Y-%m-%d"
         self.datetimeformat = datetimeformat
         self.vocabularyvalue = vocabularyvalue
 
