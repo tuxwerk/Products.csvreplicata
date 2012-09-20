@@ -97,7 +97,7 @@ schema = Schema(
         ),
         StringField(
             name='DateTimeFormat',
-            default='%d/%m/%Y %H:%M:%S',
+            default='%Y-%m-%d %H:%M:%S',
             widget=StringField._properties['widget'](
                 label='Excludedfieldsclasses',
                 label_msgid='csvreplicata_label_DateTimeFormat',
@@ -202,7 +202,7 @@ class csvreplicataTool(UniqueObject, BaseContent, BrowserDefaultMixin):
         self.setDateTimeFormat(REQUEST.get('datetimeformat'));
         self.setTempPath(REQUEST.get('tempPath'))
         self.setPlainFormat(REQUEST.get('is_plain_format', '') == 'on')
-        self.setPartialCommitNumber(int(REQUEST.get('partial_commit_number', '')))
+        self.setPartialCommitNumber(int(REQUEST.get('partial_commit_number') or 0))
         # Redirection of the page now that the treatment is done
         REQUEST.RESPONSE.redirect(self.absolute_url()+'/csv_settings')
 
